@@ -1,4 +1,5 @@
 import skillBank as sb
+import itemBank as ib
 class Player:
     def __init__(self, name, max_hp, atk, dfs, crit, max_sp):
         self.name = name
@@ -12,33 +13,41 @@ class Player:
         self.lvl = 1
         self.xp = 0
         self.xp2next = 20
-        self.inventory = {}
+        self.inventory = {"Health Potion" : 1, "Stamina Potion" : 1, "Bomb" : 1}
         self.skills = {"Big Hit" : 2}
+        self.ib = ib.ItemBank()
         self.sb = sb.SkillBank()
 
 #=======================INVENTORY METHODS=======================
-    def show_inv(self) -> None:
-        i = 1
-        print("========INVENTORY========")
-        if not self.inventory:
-            for key, val in self.inventory.items():
-                print(str(i) + ". " + key + '-'*(23 - len(str(i)) - 2 - len(key) - str(len(val)) - 1 - len(str(val))) + "x" + str(val))
-                i += 1
-        print("=========================")
-
-    def do_item_effect(self, item):
-        pass
-
-    def use_item(self) -> bool:
-        choice  = input("Type Number of the Item You Want To Use or 'q' to return to Action Menu")
-        if choice == 'q':
-            return
-        else:
-            item = self.inventory.keys()[choice]
-            print("Used a(n) " + item + "!")
-            self.do_item_effect(item)
-            return True
-#=======================INVENTORY METHODS=======================
+    def add_item(self, item):
+        try:
+            self.inventory[item] += 1
+        except KeyError:
+            self.inventory[item] = 1
+    # Player Inventory Handles the stock; IB handles the ID's
+    def use_item(self, target) -> bool:
+        while True:
+            self.show_inv()
+            choice  = input("Type Number of the Item You Want To Use or 'q' to return to Action Menu\nCHOICE: ")
+            try:
+                if choice == 'q':
+                    return
+                elif int(choice) > 0:
+                    item = list(self.inventory.keys())[int(choice)-1]
+                    print("Used a(n) " + item + "!")
+                    self.ib.use_item(self, target, item)
+                    # --===Stock Handling==--
+                    if self.inventory[item]-1 == 0:
+                        del self.inventory[item]
+                    else:
+                        self.inventory[item] -= 1
+                    # --===================--
+                    return True
+                else:
+                    print("\nChoose a valid item!")
+            except ValueError:
+                print("\nChoose a valid item!")
+#===============================================================
 
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓=LEVEL UP METHODS=↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     def _skill_check(self):
@@ -73,7 +82,7 @@ class Player:
             try:
                 if choice == 'q':
                     return [-1]
-                else:
+                elif int(choice) > 0:
                     choice = int(choice)
                     try:
                         sp_cost = list(self.skills.items())[choice-1][1]
@@ -84,9 +93,11 @@ class Player:
                         else:
                             print("Not enough SP to use that skill!")
                     except IndexError:
-                        print("Choose a valid skill!")
+                        print("\nChoose a valid skill!")
+                else:
+                    print("\nChoose a valid skill!")
             except ValueError:
-                pass
+                print("\nChoose a valid skill!")
 #=======================SKILL USAGE METHODS=======================
 
 
@@ -111,4 +122,12 @@ class Player:
             print(str(i) + ". " + key + ' '*(23 - len(str(i)) - 2 - len(key) - len(str(val)) - 4 - len(str(val))) + "SP: " + str(val))
             i += 1
         print("========================\n")
+    
+    def show_inv(self) -> None:
+        i = 1
+        print("========INVENTORY========")
+        for key, val in self.inventory.items():
+            print(str(i) + ". " + key + ' '*(23 - len(str(i)) - 2 - len(key) - len(str(val)) - 1 - len(str(val))) + "x" + str(val))
+            i += 1
+        print("=========================")
 #=======================PRINTER METHODS=======================
