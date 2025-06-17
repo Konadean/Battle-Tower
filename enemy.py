@@ -9,7 +9,7 @@ class Enemy:
         self.name = self.nameler()
         self.max_hp = 5 + random.randint(1+battleCount,5+battleCount)
         self.hp = self.max_hp
-        self.atk = round(battleCount/2) + random.randint(1,5)
+        self.atk = round(battleCount/2) + random.randint(1,3)
         self.dfs = random.randint(1+battleCount,5+battleCount)
         self.crit = battleCount if (battleCount < 100) else 100
         self.xp_reward = 5 + battleCount + random.randint(1,5) if battleCount < 20 else battleCount + random.randint(5,10)
