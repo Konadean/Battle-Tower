@@ -11,7 +11,7 @@ class Enemy:
         self.atk = battleCount + random.randint(1,5)
         self.dfs = random.randint(1+battleCount,5+battleCount)
         self.crit = 10 + battleCount if (10 + battleCount < 100) else 100
-        self.xp_reward = battleCount + random.randint(1,5)
+        self.xp_reward = 5 + battleCount + random.randint(1,5) if battleCount < 20 else battleCount + random.randint(5,10)
         self.item_drop = 1
         self.sb = sb.SkillBank()
         self.skills = self.acquire_skills()
