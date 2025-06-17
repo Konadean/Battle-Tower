@@ -1,4 +1,5 @@
 import skillBank as sb
+import itemBank as ib
 import random
 class Enemy:
     # Enemies will have no sp
@@ -12,9 +13,18 @@ class Enemy:
         self.dfs = random.randint(1+battleCount,5+battleCount)
         self.crit = 10 + battleCount if (10 + battleCount < 100) else 100
         self.xp_reward = 5 + battleCount + random.randint(1,5) if battleCount < 20 else battleCount + random.randint(5,10)
-        self.item_drop = 1
         self.sb = sb.SkillBank()
+        self.ib = ib.ItemBank()
+        self.item_drop = self.drop_item()
         self.skills = self.acquire_skills()
+
+    def drop_item(self):
+        will_drop = random.random()
+        if 0 <= will_drop and will_drop < 0.50:
+            item = self.ib.items[random.randint(0,len(self.ib.items)-1)]
+            return item
+        else:
+            return False
 
     def nameler(self):
         partA = ["Petulant","Eager","Foolish","Chance the","Tyler the","Suspicious","Meticulous","Strange","Foreign","Giddy","Genius","Bored","Wacko","X-treme","Motion","Arrogant"]
