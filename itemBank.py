@@ -24,15 +24,10 @@ class ItemBank:
     def _stamina_potion(self, user):
         print(user.name + "'s SP has been fully restored!")
         user.sp = user.max_sp
-
     def _bomb(self, user, target):
         print(user.name + " threw a bomb at " + target.name + "!")
-        time.sleep(1)
-        print('.',end='')
-        time.sleep(1)
-        print('.',end='')
-        time.sleep(1)
-        print('.\n')
+        print('...\n')
+        time.sleep(1.5)
         boom = random.random()
         if 0 <= boom and boom <= 0.65:
             print("     _.-^^---....,,--      ")
