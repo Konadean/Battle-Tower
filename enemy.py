@@ -9,9 +9,9 @@ class Enemy:
         self.name = self.nameler()
         self.max_hp = 5 + random.randint(1+battleCount,5+battleCount)
         self.hp = self.max_hp
-        self.atk = battleCount + random.randint(1,5)
+        self.atk = round(battleCount/2) + random.randint(1,5)
         self.dfs = random.randint(1+battleCount,5+battleCount)
-        self.crit = 10 + battleCount if (10 + battleCount < 100) else 100
+        self.crit = battleCount if (battleCount < 100) else 100
         self.xp_reward = 5 + battleCount + random.randint(1,5) if battleCount < 20 else battleCount + random.randint(5,10)
         self.sb = sb.SkillBank()
         self.ib = ib.ItemBank()
