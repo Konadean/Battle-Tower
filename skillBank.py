@@ -79,10 +79,9 @@ class SkillBank:
     
     def _Weaken(self, user, target) -> list[int]:
         print("\n" + user.name + " has used skill [Weaken]")
-        # Reduces the target's ATK by 20%
-        atk_reduc = round(target.atk*0.20)
-        print(target.name + "'s ATK has been reduced by " + str(atk_reduc))
-        target.atk -= atk_reduc
+        # Reduces the target's ATK by 1
+        print(target.name + "'s ATK has been permenantly reduced by 1")
+        target.atk -= 1
         return [0]
     
     def _Lucky_Strikes(self, user) -> list[int]:
@@ -96,7 +95,7 @@ class SkillBank:
             if 0 <= k and k < 0.5:
                 count += 1
                 modifier -= 0.10
-                atk_q.append(round(user.atk*modifier))
+                atk_q.append(round(user.atk*modifier) if round(user.atk*modifier) > 1 else 1)
             else:
                 break
         print(user.name + " will hit " + str(count) + " time(s)!")
