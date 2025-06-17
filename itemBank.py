@@ -29,7 +29,7 @@ class ItemBank:
         print('...\n')
         time.sleep(1.5)
         boom = random.random()
-        if 0 <= boom and boom <= 0.65:
+        if 0 <= boom and boom <= 0.75:
             print("     _.-^^---....,,--      ")
             print(" _--                  --_  ")
             print("<                        >)")
