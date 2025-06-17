@@ -86,21 +86,22 @@ class SkillBank:
         return [0]
     
     def _Lucky_Strikes(self, user) -> list[int]:
-        # 50% chance each time to hit for (110-5*x)% of ATK where x is the amount of bonus strikes used
+        # 50% chance each time to hit for (100-10*x)% of ATK where x is the amount of bonus strikes used
         print("\n" + user.name + " has used skill [Lucky Strikes]")
         count = 1
-        modifier = 1.10
+        modifier = 1.00
         atk_q = [round(user.atk*modifier)]
         while True:
             k = random.random()
             if 0 <= k and k < 0.5:
                 count += 1
-                modifier -= 0.05
+                modifier -= 0.10
                 atk_q.append(round(user.atk*modifier))
             else:
                 break
         print(user.name + " will hit " + str(count) + " time(s)!")
         return atk_q
+
 
     
     
