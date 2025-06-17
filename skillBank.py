@@ -46,7 +46,7 @@ class SkillBank:
         return [round(user.atk*1.3)]
     
     def _Heal(self, user) -> list[int]:
-        heal_amount = round(user.max_hp*.15)
+        heal_amount = round(user.max_hp*.5)
         print("\n" + user.name + " has used skill [Heal]")
         print(user.name + " is Healed for " + str(heal_amount) + " HP!")
         if user.hp + heal_amount >= user.max_hp:
