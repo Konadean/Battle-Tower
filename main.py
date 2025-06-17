@@ -13,7 +13,7 @@ def startup():
             break
         else:
             print("Please input a valid length name! (25 characters max)")
-    return p.Player(n,15,5,2,15,10)
+    return p.Player(n,20,5,2,15,10)
 
 def main():
     p1 = startup()
