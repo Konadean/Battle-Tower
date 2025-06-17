@@ -39,10 +39,14 @@ class Battle:
                 print("You have leveled up! All stats increased by 1")
                 print("HP and SP have been fully restored!")
                 self.player.lvlup(self.player.xp + self.enemy.xp_reward - self.player.xp2next)
-            #No lvl up -> add exp to exp stat
+            # No lvl up -> add exp to exp stat
             else:
                 self.player.xp += self.enemy.xp_reward
             print("<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>\n")
+            # Check for item
+            if self.enemy.item_drop:
+                print("Looks like " + self.enemy.name + " had something useful on them, obtained a(n) " + self.enemy.item_drop + '!')
+                self.player.add_item(self.enemy.item_drop)
         else:
             print("YOU DIED. EXITING GAME.")
             return -1
@@ -72,7 +76,7 @@ class Battle:
                             for dmg_instance in dmg:
                                 turn_end = self._attack(self.player, self.enemy, dmg_instance)
                     elif action == '3':
-                        turn_end = self.player.use_item()
+                        turn_end = self.player.use_item(self.enemy)
                 # Kill Check
                 if self.enemy.hp <= 0:
                     self._end_battle(True)
