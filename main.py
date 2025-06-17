@@ -5,13 +5,15 @@ import battle
 
 # TO DO
 # Item Bank
-# Enemy AI
-#   attacks
-#   skills
 
 def startup():
-    n = input("Enter your name! : ")
-    return p.Player(n,20,5,2,15,10)
+    while True:
+        n = input("Enter your name! (25 characters max): ")
+        if len(n) <= 25:
+            break
+        else:
+            print("Please input a valid length name! (25 characters max)")
+    return p.Player(n,15,5,2,15,10)
 
 def main():
     p1 = startup()
