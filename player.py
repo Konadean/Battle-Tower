@@ -52,9 +52,12 @@ class Player:
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓=LEVEL UP METHODS=↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     def _skill_check(self):
         if self.sb.can_learn_new_skills(self.lvl):
-            next_skill = list(self.sb.skills.items())[self.lvl]
-            self.skills[next_skill[0]] = next_skill[1]
-            print("Learned a new skill: [" + next_skill[0] + "]!")
+            try:
+                next_skill = list(self.sb.skills.items())[self.lvl]
+                self.skills[next_skill[0]] = next_skill[1]
+                print("Learned a new skill: [" + next_skill[0] + "]!")
+            except IndexError:
+                pass
 
     def lvlup(self, extraXP:int) -> None:
         # print("Entered lvlup method")
