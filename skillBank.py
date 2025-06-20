@@ -107,14 +107,19 @@ class SkillBank:
         print(user.name + " will hit " + str(count) + " time(s)!")
         return atk_q
     
-    def _Scavenge(self, user, target):
+def _Scavenge(self, user, target):
         # Generates a random item and uses it!
         print("\n" + user.name + " has used skill [Scavenge]")
         item = self.ib.items[random.randint(0,len(self.ib.items)-1)]
         print(user.name + " rummaged around .....")
         time.sleep(1)
         print(user.name + " used a(n) " + item + "!")
-        self.ib.use_item(user, target, item)
+        if item == "Stamina Potion" and type(user) == e:
+            dmg = random.randint(1,5)
+            print(user.name + " doesn't need stamina and takes " + str(dmg) + " instead!")
+            user.hp -= dmg
+        else:
+            self.ib.use_item(user, target, item)
         return [0]
     
     
