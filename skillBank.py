@@ -109,11 +109,11 @@ class SkillBank:
     
     def _Scavenge(self, user, target):
         # Generates a random item and uses it!
+        print("\n" + user.name + " has used skill [Scavenge]")
         item = self.ib.items[random.randint(0,len(self.ib.items)-1)]
         print(user.name + " rummaged around .....")
         time.sleep(1)
         print(user.name + " used a(n) " + item + "!")
         self.ib.use_item(user, target, item)
-        
     
     
