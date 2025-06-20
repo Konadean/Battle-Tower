@@ -115,5 +115,6 @@ class SkillBank:
         time.sleep(1)
         print(user.name + " used a(n) " + item + "!")
         self.ib.use_item(user, target, item)
+        return [0]
     
     
