@@ -1,4 +1,6 @@
 import random
+import time
+import ItemBank as ib
 # Generic Skill Repository that both the Player and Enemy Classes can use
 class SkillBank:
     def __init__(self):
@@ -10,8 +12,10 @@ class SkillBank:
             "Double Down" : 4,
             "Finger Punches" : 6,
             "Weaken" : 3,
-            "Lucky Strikes" : 5
+            "Lucky Strikes" : 5,
+            "Scavenge" : 1
         }
+        self.ib = ib.ItemBank()
 
     def can_learn_new_skills(self, lvl):
         return lvl <= len(self.skills)
@@ -34,6 +38,8 @@ class SkillBank:
                 return self._Weaken(user, target)
             case 8:
                 return self._Lucky_Strikes(user)
+            case 9:
+                return self._Scavenge(user, target)
 
     # ===============SKILLS===============
     # All skills must return an attack queue
@@ -74,8 +80,8 @@ class SkillBank:
     
     def _Finger_Punches(self, user) -> list[int]:
         print("\n" + user.name + " has used skill [Finger Punches]")
-        # Hits 5 times for 20% ATK each
-        return [round(user.atk*.2),round(user.atk*.2),round(user.atk*.2),round(user.atk*.2),round(user.atk*.2)]
+        # Hits 5 times for 25% ATK each
+        return [round(user.atk*.25),round(user.atk*.25),round(user.atk*.25),round(user.atk*.25),round(user.atk*.25)]
     
     def _Weaken(self, user, target) -> list[int]:
         print("\n" + user.name + " has used skill [Weaken]")
@@ -85,14 +91,14 @@ class SkillBank:
         return [0]
     
     def _Lucky_Strikes(self, user) -> list[int]:
-        # 50% chance each time to hit for (50-10*x)% of ATK where x is the amount of bonus strikes used
+        # CRIT% chance each time to hit for (100-10*x)% of ATK where x is the amount of bonus strikes used
         print("\n" + user.name + " has used skill [Lucky Strikes]")
         count = 1
-        modifier = 0.50
+        modifier = 1
         atk_q = [round(user.atk*modifier)]
         while True:
             k = random.random()
-            if 0 <= k and k < 0.5:
+            if 0 <= k and k < user.crit/100:
                 count += 1
                 modifier -= 0.10
                 atk_q.append(round(user.atk*modifier) if round(user.atk*modifier) > 1 else 1)
@@ -100,6 +106,14 @@ class SkillBank:
                 break
         print(user.name + " will hit " + str(count) + " time(s)!")
         return atk_q
-
+    
+    def _Scavenge(self, user, target):
+        # Generates a random item and uses it!
+        item = self.ib.items[random.randint(0,len(self.ib.items)-1)]
+        print(user.name + " rummaged around .....")
+        time.sleep(1)
+        print(user.name + " used a(n) " + item + "!")
+        self.ib.use_item(user, target, item)
+        
     
     
