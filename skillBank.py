@@ -87,7 +87,7 @@ class SkillBank:
         print("\n" + user.name + " has used skill [Weaken]")
         # Reduces the target's ATK by 1
         print(target.name + "'s ATK has been permenantly reduced by 1")
-        target.atk -= 1
+        target.atk  = (target.atk - 1) if (target.atk - 1) > 1 else 1
         return [0]
     
     def _Lucky_Strikes(self, user) -> list[int]:
