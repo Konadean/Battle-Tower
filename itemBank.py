@@ -57,12 +57,12 @@ class ItemBank:
             print("Fuse didn't light... Nothing happened.")
 
     def _power_pill(self, user):
-        print(user.name + "'s ATK has been permanently increased by 5!!!")
-        user.atk += 5
+        print(user.name + "'s ATK has been permanently increased by 3!!!")
+        user.atk += 3
 
     def _fabric_softener(self,user,target):
-        print(target.name+ "'s DEF has been reduced by 5!")
-        user.atk = user.atk - 5 if user.atk - 5 > 0 else 0
+        print(target.name+ "'s DEF has been permenantly reduced by 3!")
+        user.atk = user.atk - 3 if user.atk - 3 > 0 else 0
     
     def _cursed_nail(self,user,target):
         print("""
