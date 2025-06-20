@@ -12,6 +12,8 @@ class Enemy:
         self.atk = round(battleCount/2) + random.randint(1,3)
         self.dfs = random.randint(1+battleCount,5+battleCount)
         self.crit = battleCount if (battleCount < 100) else 100
+        self.max_sp = 0
+        self.sp = 0
         self.xp_reward = 5 + battleCount + random.randint(1,5) if battleCount < 20 else battleCount + random.randint(5,10)
         self.sb = sb.SkillBank()
         self.ib = ib.ItemBank()
